@@ -10,8 +10,8 @@
 #= require ./fixtures
 
 App.Store = DS.Store.extend(
-  revision: 11
-  adapter: "DS.FixtureAdapter"
+  revision: 12
+  adapter: "DS.RESTAdapter" # "DS.FixtureAdapter"
 )
 
 App.Post = DS.Model.extend(
@@ -22,7 +22,7 @@ App.Post = DS.Model.extend(
   publishedAt: DS.attr("date")
 )
 App.PostsRoute = Ember.Route.extend(model: ->
-  App.Post.find()
+    App.Post.find()
 )
 App.PostController = Ember.ObjectController.extend(
   isEditing: false
@@ -31,6 +31,8 @@ App.PostController = Ember.ObjectController.extend(
 
   doneEditing: ->
     @set "isEditing", false
+    @get('store').commit()
+
 )
 App.IndexRoute = Ember.Route.extend(redirect: ->
   @transitionTo "posts"
