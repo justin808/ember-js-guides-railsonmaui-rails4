@@ -1,16 +1,29 @@
 source 'https://rubygems.org'
 
+#specify ruby version to enable the deploy to Heroku instance.
+ruby '2.0.0'
+
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.0.0.rc1'
 
+# Use the 'puma' web server
+gem 'puma'
+
 gem 'ember-rails', github: 'emberjs/ember-rails'
 # ember-source mentioned in ember-rails readme, but doesn't seem necessary in Gemfile
-#gem 'ember-source', '1.0.0.rc4' # or the version you need
+gem 'ember-source', '1.0.0.rc4' # or the version you need
 # Next line is required as of 6/7/2013
 gem 'handlebars-source', '1.0.0.rc4' # or the version you need
 
 # Use sqlite3 as the database for Active Record
-gem 'sqlite3'
+#gem 'sqlite3'
+
+# Heroku Deployment
+group :production do
+  gem 'rails3_serve_static_assets', github: 'heroku/rails3_serve_static_assets'
+  gem 'rails_log_stdout',           github: 'heroku/rails_log_stdout'
+end
+gem 'pg'
 
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.0.rc1'
