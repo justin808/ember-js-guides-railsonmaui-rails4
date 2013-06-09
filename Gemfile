@@ -3,8 +3,10 @@ source 'https://rubygems.org'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.0.0.rc1'
 
-gem 'ember-rails'
-gem 'ember-source', '1.0.0.rc4' # or the version you need
+gem 'ember-rails', github: 'emberjs/ember-rails'
+# ember-source mentioned in ember-rails readme, but doesn't seem necessary in Gemfile
+#gem 'ember-source', '1.0.0.rc4' # or the version you need
+# Next line is required as of 6/7/2013
 gem 'handlebars-source', '1.0.0.rc4' # or the version you need
 
 # Use sqlite3 as the database for Active Record
@@ -18,7 +20,7 @@ gem 'uglifier', '>= 1.3.0'
 
 # Use CoffeeScript for .js.coffee assets and views
 gem 'coffee-rails', '~> 4.0.0'
-
+gem 'coffee-rails-source-maps', group: :development
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
 # gem 'therubyracer', platforms: :ruby
 
