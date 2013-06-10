@@ -10,6 +10,8 @@
 // WARNING: THE FIRST BLANK LINE MARKS THE END OF WHAT'S TO BE PROCESSED, ANY BLANK LINE SHOULD
 // GO AFTER THE REQUIRES BELOW.
 //
+//= require showdown
+//= require moment
 //= require jquery
 //= require jquery_ujs
 //= require turbolinks
@@ -19,5 +21,3 @@
 //= require_self
 //= require app
 App = Ember.Application.create();
-
-//= require_tree .
