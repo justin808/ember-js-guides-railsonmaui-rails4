@@ -10,7 +10,7 @@ class PostsController < ApplicationController
   end
 
   def create
-    respond_with Post.create(params[:post]) # not yet finished
+    respond_with Post.create(post_params)
   end
 
   def update
@@ -23,6 +23,6 @@ class PostsController < ApplicationController
 
   private
   def post_params
-    params.require(:post).permit(:title, :intro, :extended) # only allow these for now
+    params.require(:post).permit(:title, :intro, :extended, :published_at, :author) # only allow these for now
   end
 end

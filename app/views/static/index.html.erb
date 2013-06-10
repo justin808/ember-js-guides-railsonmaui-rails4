@@ -6,6 +6,7 @@
         <li>{{#linkTo 'posts'}}Posts{{/linkTo}}</li>
         <li>{{#linkTo 'about'}}About{{/linkTo}}</li>
       </ul>
+
     </div>
   </div>
   {{outlet}}
@@ -13,7 +14,8 @@
 
 <script type="text/x-handlebars" id="about">
   <div class='about'>
-    <p>Justin Gordon wrote this</p>
+    <p>Justin Gordon wrote this: http://www.railsonmaui.com</p>
+    <p>Git Repository: </p>
   </div>
 </script>
 
@@ -24,7 +26,9 @@
         <table class='table'>
           <thead>
           <tr>
-            <th>Recent Posts</th>
+            <th>Recent Posts
+              {{#linkTo "posts.new" class="btn"}}Add Post{{/linkTo}}
+            </th>
           </tr>
           </thead>
           {{#each model}}
@@ -48,15 +52,28 @@
   <p class="text-warning">Please select a post</p>
 </script>
 
+<script type="text/x-handlebars" id="posts/new">
+  <legend>Create Post</legend>
+  {{partial 'post/edit'}}
+  <button {{action 'save'}} class='btn'>Create</button>
+  <button {{action cancel}} class='btn'>Cancel</button>
+  {{partial 'post/view'}}
+</script>
+
 <script type="text/x-handlebars" id="post">
   {{#if isEditing}}
   {{partial 'post/edit'}}
-  <button {{action 'doneEditing'}}>Done</button>
+  <button {{action 'doneEditing'}} class='btn'>Done</button>
   {{else}}
-  <button {{action 'edit'}}>Edit</button>
+  <button {{action 'edit'}} class='btn'>Edit</button>
+  <button {{action 'delete'}} class='btn'>Delete</button>
   {{/if}}
+  {{partial 'post/view'}}
+</script>
+
+<script type="text/x-handlebars" id="post/_view">
   <h1>{{title}}</h1>
-  <h2>by {{author}} <small class="muted">({{date publishedAt}})</small></h2>
+  <h4>by {{author}} <small class="muted">({{date publishedAt}})</small></h4>
   <hr>
   <div class="intro">
     {{markdown intro}}
@@ -71,5 +88,3 @@
   <p>{{view Ember.TextArea valueBinding='intro' cols="50"}}</p>
   <p>{{view Ember.TextArea valueBinding='extended' cols="80" rows="10"}}</p>
 </script>
-
-

@@ -21,13 +21,38 @@ App.Post = DS.Model.extend(
   extended: DS.attr("string")
   publishedAt: DS.attr("date")
 )
-App.PostsRoute = Ember.Route.extend(model: ->
+
+App.PostsRoute = Ember.Route.extend(
+  model: ->
     App.Post.find()
 )
+
+App.PostsNewRoute = Ember.Route.extend(
+  model: ->
+    App.Post.createRecord(publishedAt: new Date(), author: "current user")
+)
+
+App.PostsNewController = Ember.ObjectController.extend(
+  save: ->
+    @get('store').commit()
+    @transitionToRoute('post', this.get('content'))
+
+  cancel: ->
+    @get('content').deleteRecord()
+    @get('store').transaction().rollback()
+    @transitionToRoute('posts')
+)
+
 App.PostController = Ember.ObjectController.extend(
   isEditing: false
   edit: ->
     @set "isEditing", true
+
+  delete: ->
+    if (window.confirm("Are you sure you want to delete this post?"))
+      @get('content').deleteRecord()
+      @get('store').commit()
+      @transitionToRoute('posts')
 
   doneEditing: ->
     @set "isEditing", false
@@ -43,7 +68,10 @@ Ember.Handlebars.registerBoundHelper "date", (date) ->
 window.showdown = new Showdown.converter()
 
 Ember.Handlebars.registerBoundHelper "markdown", (input) ->
-  new Ember.Handlebars.SafeString(window.showdown.makeHtml(input))
+  new Ember.Handlebars.SafeString(window.showdown.makeHtml(input)) if input # need to check if input is defined and not null
+
+Ember.Handlebars.registerHelper 'submitButton', (text) ->
+  new Handlebars.SafeString('<button type="submit" class="btn btn-primary">' + text + '</button>')
 
 
 App.Router.map ->
@@ -51,4 +79,4 @@ App.Router.map ->
   @resource "posts", ->
     @resource "post",
       path: ":post_id"
-
+    @route "new"
