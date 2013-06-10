@@ -14,3 +14,11 @@
 # Ignore all logfiles and tempfiles.
 /log/*.log
 /tmp
+
+# Coffeescript source maps
+/public/assets/source_maps
+
+# Ignore RubyMine setup
+.idea
+
+/public/assets
