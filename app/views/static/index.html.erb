@@ -31,11 +31,11 @@
             </th>
           </tr>
           </thead>
-          {{#each model}}
+          {{#each post in filteredContent}}
           <tr>
             <td>
-              {{#linkTo 'post' this}}{{title}}
-              <small class='muted'>by {{author}}</small>
+              {{#linkTo post post}}{{post.title}}
+              <small class='muted'>by {{post.author}}</small>
               {{/linkTo}}
             </td>
           </tr>

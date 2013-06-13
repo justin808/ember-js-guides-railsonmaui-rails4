@@ -27,6 +27,17 @@ App.PostsRoute = Ember.Route.extend(
     App.Post.find()
 )
 
+# See Discussion at http://stackoverflow.com/questions/14705124/creating-a-record-with-ember-js-ember-data-rails-and-handling-list-of-record
+App.PostsController = Ember.ArrayController.extend(
+  sortProperties: [ "id" ]
+  sortAscending: false
+  filteredContent: (->
+    content = @get("arrangedContent")
+    content.filter (item, index) ->
+      not (item.get("isDirty"))
+  ).property("arrangedContent.@each")
+)
+
 App.PostsNewRoute = Ember.Route.extend(
   model: ->
     App.Post.createRecord(publishedAt: new Date(), author: "current user")
