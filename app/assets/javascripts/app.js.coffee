@@ -75,10 +75,6 @@ window.showdown = new Showdown.converter()
 Ember.Handlebars.registerBoundHelper "markdown", (input) ->
   new Ember.Handlebars.SafeString(window.showdown.makeHtml(input)) if input # need to check if input is defined and not null
 
-Ember.Handlebars.registerHelper 'submitButton', (text) ->
-  new Handlebars.SafeString('<button type="submit" class="btn btn-primary">' + text + '</button>')
-
-
 App.Router.map ->
   @resource "about"
   @resource "posts", ->
